@@ -21,7 +21,7 @@
         </triggeringPolicy>
 
         <encoder>
-            <pattern>%-3level [%d{ISO8601}] MOCK TARIFF - %msg %n</pattern>
+            <pattern>%-3level [%d{ISO8601}] FOOTBALL - %msg %n</pattern>
         </encoder>
     </appender>
 
