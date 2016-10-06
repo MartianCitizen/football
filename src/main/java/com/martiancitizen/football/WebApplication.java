@@ -1,6 +1,5 @@
 package com.martiancitizen.football;
 
-import com.martiancitizen.football.database.MockTariffDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebApplication {
 
     public final static Logger LOGGER = LoggerFactory.getLogger(WebApplication.class);
-    public static MockTariffDatabase DATABASE;
+    public static Database DATABASE;
     private static ConfigurableEnvironment appEnv;
 
     public static void main(String args[]) {
@@ -29,7 +28,7 @@ public class WebApplication {
     }
 
     public static void loadDatabase() throws Exception {
-        DATABASE = new MockTariffDatabase();
+        DATABASE = new Database();
     }
 
     @Configuration
