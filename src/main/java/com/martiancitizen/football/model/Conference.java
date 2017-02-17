@@ -32,8 +32,8 @@ public class Conference {
     }
 
     public Conference validate() {
-        id.orElseThrow(() -> new AssertionError("id not specified"));
-        name.orElseThrow(() -> new AssertionError("name not specified"));
+        id.orElseThrow(() -> new IllegalArgumentException("id not specified"));
+        name.orElseThrow(() -> new IllegalArgumentException("name not specified"));
         return this;
     }
 

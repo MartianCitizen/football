@@ -107,10 +107,10 @@ public class Player {
     }
 
     public Player validate() {
-        id.orElseThrow(() -> new AssertionError("id not specified"));
-        team.orElseThrow(() -> new AssertionError("team not specified"));
-        name.orElseThrow(() -> new AssertionError("name not specified"));
-        number.orElseThrow(() -> new AssertionError("number not specified"));
+        id.orElseThrow(() -> new IllegalArgumentException("id not specified"));
+        team.orElseThrow(() -> new IllegalArgumentException("team not specified"));
+        name.orElseThrow(() -> new IllegalArgumentException("name not specified"));
+        number.orElseThrow(() -> new IllegalArgumentException("number not specified"));
         return this;
     }
 }

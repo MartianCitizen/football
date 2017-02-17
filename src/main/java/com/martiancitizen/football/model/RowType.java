@@ -5,7 +5,7 @@ package com.martiancitizen.football.model;
  */
 public enum RowType {
 
-    CONFERENCE(2), DIVISION(2), TEAM(4), PLAYER(8);
+    CONFERENCE(3), DIVISION(3), TEAM(5), PLAYER(9);
 
     private int numRequiredDataCells;
 

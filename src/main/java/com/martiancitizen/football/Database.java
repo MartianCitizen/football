@@ -154,7 +154,8 @@ public class Database {
 
         // Mapping function that converts spreadsheet rows into ObjectRows
         Function<Row, Optional<ObjectRow>> getObjectRowFromRow = row -> {
-            String[] cells = new String[row.getLastCellNum()];
+            int numCells = row.getPhysicalNumberOfCells();
+            String[] cells = new String[numCells];
             try {
                 int index = 0;
                 for (Cell cell : row) {
@@ -165,7 +166,7 @@ public class Database {
             }
             try {
                 RowType rowType = RowType.valueOf(cells[0]);
-                if (row.getLastCellNum() < rowType.getNumRequiredDataCells()) {
+                if (numCells < rowType.getNumRequiredDataCells()) {
                     parseErrors.add("Insufficient number of cells at row " + (row.getRowNum() + 1));
                     return Optional.empty();
                 }
@@ -192,21 +193,21 @@ public class Database {
 
         UnaryOperator<String> isConference = (arg) -> {
             if (!conferences.containsKey(arg)) {
-                throw new AssertionError("Invalid conference: " + arg);
+                throw new IllegalArgumentException("Invalid conference: " + arg);
             }
             return arg;
         };
 
         UnaryOperator<String> isDivision = (arg) -> {
             if (!divisions.containsKey(arg)) {
-                throw new AssertionError("Invalid division: " + arg);
+                throw new IllegalArgumentException("Invalid division: " + arg);
             }
             return arg;
         };
 
         UnaryOperator<String> isTeam = (arg) -> {
             if (!teams.containsKey(arg)) {
-                throw new AssertionError("Invalid team: " + arg);
+                throw new IllegalArgumentException("Invalid team: " + arg);
             }
             return arg;
         };
