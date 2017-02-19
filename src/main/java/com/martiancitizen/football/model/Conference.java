@@ -4,9 +4,6 @@ import static com.martiancitizen.football.Utilities.*;
 
 import java.util.Optional;
 
-/**
- * Created by johnchamberlain on 10/3/16.
- */
 public class Conference {
 
     private Optional<String> id;

@@ -6,9 +6,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/**
- * Created by johnchamberlain on 10/4/16.
- */
+
 public class Player {
 
     private Optional<String> id = Optional.empty();

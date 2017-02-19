@@ -7,9 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import static com.martiancitizen.football.Utilities.*;
 
-/**
- * Created by johnchamberlain on 10/3/16.
- */
+
 public class Team {
 
     private Optional<String> id;

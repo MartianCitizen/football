@@ -15,9 +15,6 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
 
-/**
- * Created by johnchamberlain on 1/21/16.
- */
 public class Database {
 
     private static final String dbPath = System.getProperty("db.fullpath") != null ? System.getProperty("db.fullpath")

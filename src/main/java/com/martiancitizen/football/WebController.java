@@ -39,7 +39,7 @@ public class WebController {
         WebApplication.LOGGER.info("Request received: /team/" + teamId);
         Optional<Team> teamOpt = WebApplication.DATABASE.getTeamForId(teamId);
         if (!teamOpt.isPresent()) {
-            return ResponseEntity.status(404).body("No such team");
+            return ResponseEntity.status(404).body("{\"message\": \"No such team\"}");
         }
         return ok(teamOpt.get());
     }
@@ -49,7 +49,7 @@ public class WebController {
         WebApplication.LOGGER.info("Request received: /roster/" + teamId);
         Optional<Team> teamOpt = WebApplication.DATABASE.getTeamForId(teamId);
         if (!teamOpt.isPresent()) {
-            return ResponseEntity.status(404).body("No such team");
+            return ResponseEntity.status(404).body("{\"message\": \"No such team\"}");
         }
         List<Player> roster = WebApplication.DATABASE.getTeamRoster(teamId);
         return ok(roster);

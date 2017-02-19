@@ -2,9 +2,7 @@ package com.martiancitizen.football;
 
 import java.util.function.Supplier;
 
-/**
- * Created by johnchamberlain on 10/4/16.
- */
+
 public class Utilities {
 
     public static final Supplier<AssertionError> OVE = () -> new AssertionError("Object validator not called");
