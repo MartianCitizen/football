@@ -4,6 +4,7 @@ import static com.martiancitizen.football.Utilities.*;
 
 import java.util.Optional;
 import java.util.function.Function;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Created by johnchamberlain on 10/4/16.
@@ -33,6 +34,7 @@ public class Player {
         return name.orElseThrow(OVE);
     }
 
+    @JsonIgnore
     public Function<String, String> setTeam = arg -> {
         this.team = Optional.of(requiredArg(arg));
         setId();

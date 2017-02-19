@@ -1,5 +1,6 @@
 package com.martiancitizen.football;
 
+import com.martiancitizen.football.model.Player;
 import com.martiancitizen.football.model.Team;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +35,24 @@ public class WebController {
 
 
     @RequestMapping(value = "/team/{id}", method = RequestMethod.GET)
-      public ResponseEntity<?> rosterForTeam(@PathVariable(value = "id") String teamId) {
+      public ResponseEntity<?> teamInfo(@PathVariable(value = "id") String teamId) {
         WebApplication.LOGGER.info("Request received: /team/" + teamId);
         Optional<Team> teamOpt = WebApplication.DATABASE.getTeamForId(teamId);
         if (!teamOpt.isPresent()) {
             return ResponseEntity.status(404).body("No such team");
         }
         return ok(teamOpt.get());
+    }
+
+    @RequestMapping(value = "/roster/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> rosterForTeam(@PathVariable(value = "id") String teamId) {
+        WebApplication.LOGGER.info("Request received: /roster/" + teamId);
+        Optional<Team> teamOpt = WebApplication.DATABASE.getTeamForId(teamId);
+        if (!teamOpt.isPresent()) {
+            return ResponseEntity.status(404).body("No such team");
+        }
+        List<Player> roster = WebApplication.DATABASE.getTeamRoster(teamId);
+        return ok(roster);
     }
 
 }

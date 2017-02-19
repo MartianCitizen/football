@@ -10,6 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.io.File;
 import java.util.*;
 import java.util.function.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
@@ -57,6 +58,13 @@ public class Database {
 
     public Optional<Team> getTeamForId(String id) {
         return teams.containsKey(id) ? Optional.of(teams.get(id)) : Optional.empty();
+    }
+
+    public List<Player> getTeamRoster(String teamName) {
+        List<Player> roster = players.values().stream()
+                .filter(player -> player.getTeam().equals(teamName))
+                .collect(Collectors.toList());
+        return roster;
     }
 
 
