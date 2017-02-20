@@ -51,7 +51,12 @@ public class HttpClient {
             LinkedHashMap<String, Object> jsonMap = new LinkedHashMap<>();
             int resultCode = resp.getStatusCode().value();
             jsonMap.put("code", resultCode);
-            jsonMap.put("data", JSON.readValue(resp.getBody(), LinkedHashMap.class));
+            String body = resp.getBody();
+            if (body.startsWith("[")) {
+                jsonMap.put("data", JSON.readValue(resp.getBody(), ArrayList.class));
+            } else {
+                jsonMap.put("data", JSON.readValue(resp.getBody(), LinkedHashMap.class));
+            }
             ResponseEntity<Map<String, Object>> respJson = new ResponseEntity<>(jsonMap, resp.getStatusCode());
             responseOpt = Optional.of(respJson);
         } catch (JsonParseException e) {
