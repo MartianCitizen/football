@@ -1,4 +1,4 @@
-Feature: Basic tests
+Feature: Basic endpoint tests
 
 
   Scenario: Test the team endpoint with a valid team id
