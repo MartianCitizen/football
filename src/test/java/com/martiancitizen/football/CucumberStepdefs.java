@@ -48,7 +48,7 @@ public class CucumberStepdefs {
         client.get(uri);
     }
 
-    // The following stepdef verifies that exactly the specified set of properties is returned for the team. If is an error if
+    // The following stepdef verifies that exactly the specified set of properties is returned for the team. It is an error if
     // there are additional properties.
     @Then("^the team should have the following properties:$")
     public void teamShouldHaveProperties(DataTable table) throws Throwable {
@@ -87,11 +87,11 @@ public class CucumberStepdefs {
             List<String> cells = row.getCells();
             assertEquals(1, cells.size());
             String expectedName = cells.get(0);
+            // Verify that there is exactly one instance of the player.
             long numMatchingNames = data.stream()
                     .map(player -> player.getOrDefault("name", "N/A"))
                     .filter(expectedName::equals)
                     .count();
-            // Verify that there is exactly one instance of the player.
             assertEquals(String.format("Invalid number of players with the name %s: ", expectedName), 1, numMatchingNames);
         }
     }
