@@ -1,5 +1,5 @@
 # football
-This is a simple Spring web application which demonstrates the language features introduced in Java 8. It includes a basic REST API test suite implemented in  the Cucumber framework..
+This is a simple Spring web application which demonstrates the language features introduced in Java 8. It includes a basic REST API test suite implemented in  the Cucumber framework.
 
 ## To run the app locally:
 
