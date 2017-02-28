@@ -17,7 +17,7 @@ public class Division {
     }
 
     public String getId() {
-        return id.orElseThrow(Utilities.OVE);
+        return id.orElseThrow(Utilities.REQUIRED_ATTRIBUTE_MISSING);
     }
 
     public void setName(String arg) {
@@ -25,7 +25,7 @@ public class Division {
     }
 
     public String getName() {
-        return name.orElseThrow(Utilities.OVE);
+        return name.orElseThrow(Utilities.REQUIRED_ATTRIBUTE_MISSING);
     }
 
     public Division validate() {

@@ -39,9 +39,39 @@ public class CucumberStepdefs {
         client.doesResponseContentContain(expectedMsg);
     }
 
+
+    // The following stepdef verifies that the specified name values are returned in the response. It is OK if the response
+    // contains additional names.
+    @Then("^the response should include the following names:$")
+    public void responseShouldIncludeNames(DataTable table) throws Throwable {
+        List<LinkedHashMap<String, Object>> data = client.getResponseDataAsList();
+        List<DataTableRow> rows = table.getGherkinRows();
+        assertTrue(rows != null && !rows.isEmpty());
+        for (DataTableRow row : rows) {
+            List<String> cells = row.getCells();
+            assertEquals(1, cells.size());
+            String expectedName = cells.get(0);
+            // Verify that there is exactly one instance of the name.
+            long numMatchingNames = data.stream()
+                    .map(player -> player.getOrDefault("name", "N/A"))
+                    .filter(expectedName::equals)
+                    .count();
+            assertEquals(String.format("Invalid number of objects with the name %s: ", expectedName), 1, numMatchingNames);
+        }
+    }
+
+
     /*
-    team endpoint stepdefs
+    Specific endpoint stepdefs
      */
+
+    @When("^I retrieve all of the teams$")
+    public void iRetrieveTheTeams() throws Throwable {
+        String uri = "/teams";
+        client.get(uri);
+    }
+
+
     @When("^I retrieve the team with the id \"([^\"]*)\"$")
     public void iRetrieveTheTeamWithTheId(String id) throws Throwable {
         String uri = "/team/" + id;
@@ -66,9 +96,6 @@ public class CucumberStepdefs {
         }
     }
 
-    /*
-    roster endpoint stepdefs
-     */
 
     @When("^I retrieve the roster for the team with the id \"([^\"]*)\"$")
     public void iRetrieveTheRosterForTeamWithTheId(String id) throws Throwable {
@@ -76,23 +103,4 @@ public class CucumberStepdefs {
         client.get(uri);
     }
 
-    // The following stepdef verifies that the specified players exist in the roster. It is OK if the roster
-    // contains additional players.
-    @Then("^the roster should include the following players:$")
-    public void rosterShouldHavePlayers(DataTable table) throws Throwable {
-        List<LinkedHashMap<String, Object>> data = client.getResponseDataAsList();
-        List<DataTableRow> rows = table.getGherkinRows();
-        assertTrue(rows != null && !rows.isEmpty());
-        for (DataTableRow row : rows) {
-            List<String> cells = row.getCells();
-            assertEquals(1, cells.size());
-            String expectedName = cells.get(0);
-            // Verify that there is exactly one instance of the player.
-            long numMatchingNames = data.stream()
-                    .map(player -> player.getOrDefault("name", "N/A"))
-                    .filter(expectedName::equals)
-                    .count();
-            assertEquals(String.format("Invalid number of players with the name %s: ", expectedName), 1, numMatchingNames);
-        }
-    }
 }

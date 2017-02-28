@@ -23,7 +23,7 @@ public class Team {
     }
 
     public String getId() {
-        return id.orElseThrow(OVE);
+        return id.orElseThrow(REQUIRED_ATTRIBUTE_MISSING);
     }
 
     public void setName(String arg) {
@@ -31,7 +31,7 @@ public class Team {
     }
 
     public String getName() {
-        return name.orElseThrow(OVE);
+        return name.orElseThrow(REQUIRED_ATTRIBUTE_MISSING);
     }
 
     @JsonIgnore

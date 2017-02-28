@@ -17,7 +17,7 @@ public class Conference {
     }
 
     public String getId() {
-        return id.orElseThrow(OVE);
+        return id.orElseThrow(REQUIRED_ATTRIBUTE_MISSING);
     }
 
     public void setName(String arg) {
@@ -25,7 +25,7 @@ public class Conference {
     }
 
     public String getName() {
-        return name.orElseThrow(OVE);
+        return name.orElseThrow(REQUIRED_ATTRIBUTE_MISSING);
     }
 
     public Conference validate() {

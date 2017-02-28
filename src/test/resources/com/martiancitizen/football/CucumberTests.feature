@@ -1,14 +1,23 @@
 Feature: Basic endpoint tests
 
 
+  Scenario: test the teams endpoint
+
+    When I retrieve all of the teams
+    Then the HTTP status code should be 200
+    And the response should include the following names:
+      | New England Patriots |
+      | Dallas Cowboys       |
+
+
   Scenario: Test the team endpoint with a valid team id
 
     When I retrieve the team with the id "NEP"
     Then the HTTP status code should be 200
     And the team should have the following properties:
-    | name | New England Patriots |
-    | conference | AFC            |
-    | division   | East           |
+      | name       | New England Patriots |
+      | conference | AFC                  |
+      | division   | East                 |
 
 
   Scenario: Test the team endpoint with an invalid id
@@ -21,7 +30,7 @@ Feature: Basic endpoint tests
 
     When I retrieve the roster for the team with the id "NEP"
     Then the HTTP status code should be 200
-    And the roster should include the following players:
+    And the response should include the following names:
       | Amendola, Danny |
       | Allen, Ryan     |
 

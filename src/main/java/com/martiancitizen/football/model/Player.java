@@ -29,7 +29,7 @@ public class Player {
     }
 
     public String getName() {
-        return name.orElseThrow(OVE);
+        return name.orElseThrow(REQUIRED_ATTRIBUTE_MISSING);
     }
 
     @JsonIgnore
@@ -40,7 +40,7 @@ public class Player {
     };
 
     public String getTeam() {
-        return team.orElseThrow(OVE);
+        return team.orElseThrow(REQUIRED_ATTRIBUTE_MISSING);
     }
 
     public void setNumber(String arg) {
@@ -49,7 +49,7 @@ public class Player {
     }
 
     public String getNumber() {
-        return number.orElseThrow(OVE);
+        return number.orElseThrow(REQUIRED_ATTRIBUTE_MISSING);
     }
 
     private void setId() {
@@ -61,7 +61,7 @@ public class Player {
     }
 
     public String getId() {
-        return id.orElseThrow(OVE);
+        return id.orElseThrow(REQUIRED_ATTRIBUTE_MISSING);
     }
 
     // Optional data

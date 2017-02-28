@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 
 public class Utilities {
 
-    public static final Supplier<AssertionError> OVE = () -> new AssertionError("Object validator not called");
+    public static final Supplier<AssertionError> REQUIRED_ATTRIBUTE_MISSING = () -> new AssertionError("Required attribute missing");
 
     public static <T> T requiredArg(T arg) {
         if (arg == null) {

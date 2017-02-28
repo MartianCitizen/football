@@ -200,10 +200,9 @@ public class Database {
                     .collect(toList());
         }
 
-
-        // Mapping functions that convert cell arrays into database objects
-
         Predicate<Pair<String, Consumer<String>>> ifValuePresent = pair -> pair.getLeft() != null && !pair.getLeft().isEmpty() && !pair.getLeft().equalsIgnoreCase("na");
+
+        // These UnaryOperator functions perform validation on their argument. If the validation passes, the arg is returned; if it fails, an exception is thrown.
 
         UnaryOperator<String> isConference = (arg) -> {
             if (!conferences.containsKey(arg)) {
@@ -225,6 +224,9 @@ public class Database {
             }
             return arg;
         };
+
+
+        // Mapping functions that convert cell arrays into database objects
 
         Function<ObjectRow, Optional<Pair<String, Conference>>> getConferenceFromRow = row -> {
 
