@@ -10,6 +10,12 @@ This is a simple Spring web application which demonstrates the language features
 
 The Tomcat server will listen on port 8083. If you need to use a different port, edit the file `./football/src/main/resources/application.properties`
 
+## To run the Cucumber test suite
+
+1. Start the app as described above
+2. Open another terminal window and cd into the local repo: `cd <your-repo-path>/football`
+3. Run the tests: `mvn test`
+
 ## REST API endpoints
 
 - Get metadata for a team: `/team/{id}`, for example: `curl http://localhost:8083/team/NEP`

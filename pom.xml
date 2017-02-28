@@ -14,6 +14,7 @@
 
     <properties>
         <cucumber-version>1.2.4</cucumber-version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
@@ -49,6 +50,12 @@
             <version>${cucumber-version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Spring -->
         <dependency>
@@ -67,7 +74,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.3</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>

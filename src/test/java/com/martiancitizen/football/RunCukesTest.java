@@ -6,5 +6,5 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(format = { "pretty", "html:log/cucumber"}, tags = { "~@wip"})
-public class RunCukes {
+public class RunCukesTest {
 }
