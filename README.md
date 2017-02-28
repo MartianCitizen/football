@@ -18,6 +18,7 @@ The Tomcat server will listen on port 8083. If you need to use a different port,
 
 ## REST API endpoints
 
+- Get the list of teams: `curl http://localhost:8083/teams`
 - Get metadata for a team: `/team/{id}`, for example: `curl http://localhost:8083/team/NEP`
 - Get team roster: `/roster/{team-id}`, for example: `curl http://localhost:8083/roster/NEP`
 - Reload the database: `curl http://localhost:8083/refresh`

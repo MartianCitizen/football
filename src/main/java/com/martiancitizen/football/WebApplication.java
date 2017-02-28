@@ -12,8 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class WebApplication {
 
-    public final static Logger LOGGER = LoggerFactory.getLogger(WebApplication.class);
-    public static Database DATABASE;
+    private final static Logger LOGGER = LoggerFactory.getLogger(WebApplication.class);
+    private static Database DATABASE;
     private static ConfigurableEnvironment appEnv;
 
     public static void main(String args[]) {
@@ -25,6 +25,10 @@ public class WebApplication {
         }
         ConfigurableApplicationContext context = SpringApplication.run(WebApplication.class, args);
         appEnv = context.getEnvironment();
+    }
+
+    public static Database getDatabase() {
+        return DATABASE;
     }
 
     public static void loadDatabase() throws Exception {

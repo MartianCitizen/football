@@ -6,6 +6,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.NPOIFSFileSystem;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.*;
@@ -16,6 +18,8 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.*;
 
 public class Database {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(Database.class);
 
     private static final String dbPath = System.getProperty("db.fullpath") != null ? System.getProperty("db.fullpath")
             : System.getProperty("user.dir") + "/src/test/resources";
@@ -35,7 +39,7 @@ public class Database {
     public Database() throws Exception {
         loadDatabase();
         if (!parseErrors.isEmpty()) {
-            parseErrors.forEach(WebApplication.LOGGER::error);
+            parseErrors.forEach(LOGGER::error);
             throw new Exception("Could not load spreadsheet");
         }
     }
@@ -55,6 +59,11 @@ public class Database {
 
     public Optional<Team> getTeamForId(String id) {
         return teams.containsKey(id) ? Optional.of(teams.get(id)) : Optional.empty();
+    }
+
+    public List<Team> getTeams() {
+        List<Team> teamList = teams.values().stream().collect(Collectors.toList());
+        return teamList;
     }
 
     public List<Player> getTeamRoster(String teamName) {
