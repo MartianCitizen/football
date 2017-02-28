@@ -18,7 +18,7 @@ public class WebController {
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
     public ResponseEntity<?> ping() {
         LOGGER.info("Request received: /ping");
-        return ok("Ping");
+        return ok("{\"message\": \"Pong\"}");
     }
 
 
@@ -30,7 +30,7 @@ public class WebController {
         } catch (Exception e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }
-        return ok("Database refreshed");
+        return ok("{\"message\": \"Database refreshed\"}");
     }
 
 
