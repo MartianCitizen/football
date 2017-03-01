@@ -8,6 +8,7 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -48,7 +49,16 @@ public class HttpClient {
     }
 
     // Issue a GET request to a RESTful endpoint and put the response into a canonical form
-    public void get(String uri){
+    public void get(String uri) {
+        makeHttpRequest(uri, HttpMethod.GET, Optional.empty());
+    }
+
+    // Issue a POST request to a RESTful endpoint and put the response into a canonical form
+    public void post(String uri) {
+        makeHttpRequest(uri, HttpMethod.POST, Optional.empty());  // We currently only support empty payload
+    }
+
+    private void makeHttpRequest(String uri, HttpMethod method, Optional<Map<String, Object>> payloadOpt) {
 
         responseOpt = Optional.empty();  // Clear out the previous response
 
@@ -56,17 +66,20 @@ public class HttpClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<?> entity = new HttpEntity<>(headers);
 
         // Create a REST accessor. We set a custom error handler because the default handler throws an exception for non-20x responses
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setErrorHandler(new CustomHttpErrorHandler());
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl + uri);
+        URI fullUri = UriComponentsBuilder.fromHttpUrl(baseUrl + uri).build().toUri();
         Optional<ResponseEntity<String>> respOptTemp = Optional.empty();
+
         try {
             // Call the REST endpoint and return the response
-            ResponseEntity<String> resp = restTemplate.exchange(builder.buildAndExpand().toUri(), HttpMethod.GET, entity, String.class);
+            RequestEntity<Map<String, Object>> request = payloadOpt.isPresent()
+                    ? new RequestEntity<>(payloadOpt.get(), headers, method, fullUri)
+                    : new RequestEntity<>(headers, method, fullUri);
+            ResponseEntity<String> resp = restTemplate.exchange(request, String.class);
             respOptTemp = Optional.of(resp);
 
             // Create a standardized JSON container for the response so that 20x and error responses have a consistent format
@@ -85,6 +98,7 @@ public class HttpClient {
             // we may have cases where a valid endpoint response is not a map.
             ResponseEntity<Map<String, Object>> respJson = new ResponseEntity<>(jsonMap, resp.getStatusCode());
             responseOpt = Optional.of(respJson);
+
         } catch (JsonParseException e) {
             // Yes, we could build the error message as a concatenated string, but this code illustrates a more
             // extendable way to handle any number of errors.
@@ -92,6 +106,7 @@ public class HttpClient {
             errors.add(e.toString());
             errors.add("Raw response: " + (respOptTemp.isPresent() ? respOptTemp.get().getBody() : "Not available"));
             throw new AssertionError(errors.stream().collect(Collectors.joining("\n")));
+
         } catch (Exception e) {
             throw new AssertionError(e.toString());
         }

@@ -26,8 +26,19 @@ public class CucumberStepdefs {
     /*
     HTTP client stepdefs
      */
+
+    @When("^I send a GET request to the endpoint \"([^\"]*)\"$")
+    public void iSendGetRequest(String endpoint) throws Throwable {
+        client.get(endpoint.startsWith("/") ? endpoint : "/" + endpoint);
+    }
+
+    @When("^I send a POST request to the endpoint \"([^\"]*)\"$")
+    public void iSendPutRequest(String endpoint) throws Throwable {
+        client.post(endpoint.startsWith("/") ? endpoint : "/" + endpoint);
+    }
+
     @Then("^the HTTP status code should be (\\d+)$")
-    public void the_HTTP_status_code_should_be(int statusCode) throws Throwable {
+    public void httpStatusCodeShouldBe(int statusCode) throws Throwable {
         client.isResponseStatus(statusCode);
     }
 
@@ -35,7 +46,7 @@ public class CucumberStepdefs {
     // This stepdef is used to verify error messages. The test case will pass if the endpoint response contains the
     // specified string. It is OK if the response contains additional data.
     @And("^the HTTP content should contain \"([^\"]*)\"$")
-    public void the_content_should_contain(String expectedMsg) throws Throwable {
+    public void httpContentShouldContain(String expectedMsg) throws Throwable {
         client.doesResponseContentContain(expectedMsg);
     }
 
