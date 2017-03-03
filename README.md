@@ -4,7 +4,7 @@ This is a simple Spring web application which demonstrates the language features
 ## To run the app locally
 
 1. Clone the repo to your machine: `git clone https://github.com/MartianCitizen/football.git`
-2. cd into the local repo: `cd <your-repo-path>/football`
+2. Open a terminal window and cd into the local repo: `cd <your-repo-path>/football`
 3. Run the application: `mvn -Ddb.fullpath=./src/main/resources/FootballData.xls spring-boot:run`
 4. Verify that the application is running: `curl http://localhost:8083/ping` . The response should be `{"message": "Pong"}`
 
