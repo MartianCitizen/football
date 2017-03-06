@@ -39,7 +39,7 @@ public class CucumberStepdefs {
 
     @Then("^the HTTP status code should be (\\d+)$")
     public void httpStatusCodeShouldBe(int statusCode) throws Throwable {
-        client.isResponseStatus(statusCode);
+        client.isResponseStatusOneOf(statusCode);
     }
 
 

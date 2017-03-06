@@ -137,13 +137,14 @@ public class HttpClient {
 
 
     // The following methods are generally useful.
-    public void isResponseStatus(int code1) throws Throwable {
+    public void isResponseStatusOneOf(Integer... validCodes) throws Throwable {
         ResponseEntity response = responseOpt.orElseThrow(OEE);
         String responseStr = response.getBody().toString();
         Object obj = response.getBody();
         assertTrue("API response is not a LinkedHashMap", obj instanceof LinkedHashMap);
         int resultCode = response.getStatusCode().value();
-        assertTrue("Unexpected HTTP status code: " + resultCode + "  message: " + responseStr, resultCode == code1);
+        assertTrue("Unexpected HTTP status code: " + resultCode + "  message: " + responseStr,
+                Arrays.stream(validCodes).filter(code -> code == resultCode).count() > 0);
     }
 
     public void doesResponseContentContain(String expectedMsg) throws Throwable {
