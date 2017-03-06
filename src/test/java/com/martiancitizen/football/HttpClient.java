@@ -32,7 +32,7 @@ public class HttpClient {
     private static final Supplier<AssertionError> OEE = () -> new AssertionError("Optional does not contain a value");
     private static final ObjectMapper JSON = new ObjectMapper();
     static {
-        JSON.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        JSON.setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE);
     }
 
     // Prevent default constructor from being called
