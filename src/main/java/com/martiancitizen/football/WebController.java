@@ -17,13 +17,13 @@ public class WebController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(WebController.class);
 
-    @RequestMapping(value = "/ping", method = RequestMethod.GET)
+    @GetMapping(value = "/ping")
     public ResponseEntity<?> ping() {
         LOGGER.info("Request received: /ping");
         return ok("{\"message\": \"Pong\"}");
     }
 
-    @RequestMapping(value = "/refresh", method = RequestMethod.GET)
+    @GetMapping(value = "/refresh")
     public ResponseEntity<?> refresh() {
         LOGGER.info("Request received: /refresh");
         try {
@@ -34,14 +34,14 @@ public class WebController {
         return ok("{\"message\": \"Database refreshed\"}");
     }
 
-    @RequestMapping(value = "/teams", method = RequestMethod.GET)
+    @GetMapping(value = "/teams")
     public ResponseEntity<?> teamList() {
         LOGGER.info("Request received: /teams");
         List<Team> teams = WebApplication.getDatabase().getTeams();
         return ok(teams);
     }
 
-    @RequestMapping(value = "/team/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/team/{id}")
       public ResponseEntity<?> teamInfo(@PathVariable(value = "id") String teamId) {
         LOGGER.info("Request received: /team/" + teamId);
         Optional<Team> teamOpt = WebApplication.getDatabase().getTeamForId(teamId);
@@ -51,7 +51,7 @@ public class WebController {
         return ok(teamOpt.get());
     }
 
-    @RequestMapping(value = "/roster/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/roster/{id}")
     public ResponseEntity<?> rosterForTeam(@PathVariable(value = "id") String teamId) {
         LOGGER.info("Request received: /roster/" + teamId);
         Optional<Team> teamOpt = WebApplication.getDatabase().getTeamForId(teamId);
